@@ -7,6 +7,8 @@ Package.describe({
 });
 
 Package.onUse(api => {
+  api.versionsFrom('2.4');
+
   api.use(['accounts-base', 'accounts-passwordless'], ['client', 'server']);
 
   // Export Accounts (etc) to packages using this one.
