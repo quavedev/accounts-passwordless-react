@@ -7,7 +7,7 @@ Package.describe({
 });
 
 Package.onUse(api => {
-  api.versionsFrom('2.4');
+  api.versionsFrom('2.5-beta.3');
 
   api.use(['accounts-base', 'accounts-passwordless'], ['client', 'server']);
 
