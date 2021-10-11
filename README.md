@@ -43,6 +43,10 @@ export const Access = () => {
 };
 ```
 
+### Tailwind
+
+By default we provide [tailwindcss](https://tailwindcss.com/) classes, if you want to use them you need to include this path `'.meteor/local/build/programs/web.browser/packages/quave_accounts-passwordless-react.js'` in your purge array inside `tailwind.config.js` to preserve the classes used inside our components.
+
 ### Additional options
 
 You can customize all the texts, for example, if you have a system with multiple languages you could have a `getText` function as a helper to get the proper text based on the language.
