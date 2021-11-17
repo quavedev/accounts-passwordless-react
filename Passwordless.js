@@ -198,7 +198,7 @@ export const Passwordless = ({
       return;
     }
 
-    Meteor.loginWithToken({ email }, token, error => {
+    Meteor.passwordlessLoginWithToken({ email }, token, error => {
       if (error) {
         onEnterError({
           error,
