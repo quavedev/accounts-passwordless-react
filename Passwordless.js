@@ -94,7 +94,7 @@ const Message = ({ message, setMessage, isError = true }) => {
                 isError ? 'ring-offset-red-50' : 'ring-offset-green-50'
               } focus:${isError ? 'ring-red-600' : 'ring-green-600'}`}
             >
-              <span className="sr-only">Dismiss</span>x
+              <span className="sr-only">Dismiss</span>
             </button>
           </div>
         </div>
