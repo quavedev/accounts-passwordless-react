@@ -188,7 +188,7 @@ export const Passwordless = ({
     setErrorMessage('');
     setSuccessRequestTokenMessage('');
 
-    if (!validateEmail(email)) {
+    if (!emailValidationFunction(email)) {
       setErrorMessage(emailValidationErrorMessage);
       onInvalidEmail();
       return;
