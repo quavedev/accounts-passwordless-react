@@ -136,6 +136,7 @@ export const Passwordless = ({
       : 'Welcome back. Check your email to access with your token!',
   ErrorComponent = Error,
   SuccessComponent = Success,
+  emailValidationFunction = isEmailValid,
   extra,
 }) => {
   const [isWaitingToInformToken, setIsWaitingToInformToken] = useState(false);
@@ -151,7 +152,7 @@ export const Passwordless = ({
     setErrorMessage('');
     setSuccessRequestTokenMessage('');
 
-    if (!isEmailValid(email)) {
+    if (!emailValidationFunction(email)) {
       setErrorMessage(emailValidationErrorMessage);
       onInvalidEmail();
       return;
@@ -187,7 +188,7 @@ export const Passwordless = ({
     setErrorMessage('');
     setSuccessRequestTokenMessage('');
 
-    if (!isEmailValid(email)) {
+    if (!validateEmail(email)) {
       setErrorMessage(emailValidationErrorMessage);
       onInvalidEmail();
       return;
