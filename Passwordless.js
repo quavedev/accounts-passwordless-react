@@ -94,7 +94,7 @@ const Message = ({ message, setMessage, isError = true }) => {
                 isError ? 'ring-offset-red-50' : 'ring-offset-green-50'
               } focus:${isError ? 'ring-red-600' : 'ring-green-600'}`}
             >
-              <span className="sr-only">Dismiss</span>x
+              <span className="sr-only">Dismiss</span>
             </button>
           </div>
         </div>
@@ -116,6 +116,7 @@ export const Passwordless = ({
   inputProps = {},
   emailInputProps = {},
   tokenInputProps = {},
+  twoFactorCodeInputProps = {},
   labelProps = {},
   linkProps = {},
   buttonProps = {},
@@ -141,6 +142,8 @@ export const Passwordless = ({
   const [isWaitingToInformToken, setIsWaitingToInformToken] = useState(false);
   const [email, setEmail] = useState('');
   const [token, setToken] = useState('');
+  const [twoFactorCode, setTwoFactorCode] = useState('');
+  const [needsTwoFactorCode, setNeedsTwoFactorCode] = useState(false);
   const [isCreating, setIsCreating] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successRequestTokenMessage, setSuccessRequestTokenMessage] = useState(
@@ -198,8 +201,28 @@ export const Passwordless = ({
       return;
     }
 
+    if (needsTwoFactorCode) {
+      Meteor.passwordlessLoginWithTokenAnd2faCode({ email }, token, twoFactorCode, error => {
+        if (error) {
+          onEnterError({
+            error,
+            message: 'Error entering 2FA code',
+          });
+          setErrorMessage("Your 2FA code doesn't match. Please try again.");
+          setTwoFactorCode('');
+          return;
+        }
+        onEnterToken({ isNewUser: isCreating });
+      });
+      return;
+    }
+
     Meteor.passwordlessLoginWithToken({ email }, token, error => {
       if (error) {
+        if (error.error === 'no-2fa-code') {
+          setNeedsTwoFactorCode(true);
+          return;
+        }
         onEnterError({
           error,
           message: 'Error entering login token',
@@ -251,6 +274,26 @@ export const Passwordless = ({
                   onChange={({ target: { value } }) => setToken(value)}
                   {...inputProps}
                   {...tokenInputProps}
+                />
+              </div>
+            </div>
+          )}
+
+          {needsTwoFactorCode && (
+            <div>
+              <Label htmlFor="twoFactorCode" {...labelProps}>
+                2FA Code
+              </Label>
+              <div className="mt-1">
+                <Field
+                  id="twoFactorCode"
+                  name="twoFactorCode"
+                  autoComplete="off"
+                  required
+                  value={twoFactorCode}
+                  onChange={({ target: { value } }) => setTwoFactorCode(value)}
+                  {...inputProps}
+                  {...twoFactorCodeInputProps}
                 />
               </div>
             </div>
