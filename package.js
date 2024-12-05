@@ -3,7 +3,7 @@
 Package.describe({
   name: 'quave:accounts-passwordless-react',
   summary: 'Passwordless for React',
-  version: '2.2.0',
+  version: '2.2.1',
 });
 
 Package.onUse(api => {

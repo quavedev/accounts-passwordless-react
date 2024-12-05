@@ -131,6 +131,8 @@ export const Passwordless = ({
   enterButtonLabel = 'Sign in',
   emailValidationErrorMessage = 'Invalid email.',
   tokenValidationErrorMessage = 'Invalid token.',
+  twoFactorCodeLabel = '2FA Code',
+  twoFactorCodeValidationErrorMessage = 'Invalid 2FA code.',
   getSuccessRequestTokenMessage = ({ isNewUser }) =>
     isNewUser
       ? 'Please check your email to confirm your account and get your access token.'
@@ -208,7 +210,7 @@ export const Passwordless = ({
             error,
             message: 'Error entering 2FA code',
           });
-          setErrorMessage("Your 2FA code doesn't match. Please try again.");
+          setErrorMessage(twoFactorCodeValidationErrorMessage);
           setTwoFactorCode('');
           return;
         }
@@ -282,7 +284,7 @@ export const Passwordless = ({
           {needsTwoFactorCode && (
             <div>
               <Label htmlFor="twoFactorCode" {...labelProps}>
-                2FA Code
+                {twoFactorCodeLabel}
               </Label>
               <div className="mt-1">
                 <Field

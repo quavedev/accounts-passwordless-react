@@ -1,8 +1,14 @@
 ## Changelog
 
-### 2.2.0
+### 2.2.1
 
-- Show 2FA code input in the passwordless login form
+- Added support for Two-Factor Authentication (2FA) in the passwordless login form
+- Added new customizable props for 2FA:
+  - `twoFactorCodeLabel`: Customize the 2FA input field label
+  - `twoFactorCodeValidationErrorMessage`: Customize the 2FA validation error message
+  - `twoFactorCodeInputProps`: Additional props for the 2FA input field
+- Automatically handles the `no-2fa-code` error and shows 2FA input when required
+- Compatible with the `accounts-2fa` package
 
 ### 2.1.0
 

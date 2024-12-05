@@ -151,6 +151,8 @@ export const Access = () => {
       enterButtonLabel={getText('enterButtonLabel')}
       emailValidationErrorMessage={getText('emailValidationErrorMessage')}
       tokenValidationErrorMessage={getText('tokenValidationErrorMessage')}
+      twoFactorCodeLabel={getText('twoFactorCodeLabel')}
+      twoFactorCodeValidationErrorMessage={getText('twoFactorCodeValidationErrorMessage')}
       getSuccessRequestTokenMessage={({ isNewUser }) =>
         getText('successRequestTokenMessage', { isNewUser })
       }
@@ -169,6 +171,7 @@ By default TailwindCSS classes are added for you but you can override them. You 
   inputProps = {},
   emailInputProps = {},
   tokenInputProps = {},
+  twoFactorCodeInputProps = {},
   labelProps = {},
   linkProps = {},
   buttonProps = {},
@@ -200,6 +203,49 @@ By default TailwindCSS classes are added for you but you can override them. You 
 ```
 
 If you don't want to use this UI to display messages you can provide `null` for both.
+
+### Two-Factor Authentication (2FA)
+
+This package supports Two-Factor Authentication (2FA) when used with the `accounts-2fa` package. When 2FA is enabled for a user, they will be prompted to enter their 2FA code after successfully entering their email and token.
+
+The flow works as follows:
+1. User enters their email and receives a token
+2. User enters the token
+3. If 2FA is enabled for the user, a new field appears requesting their 2FA code
+4. User enters the code from their authenticator app
+5. Authentication completes if the code is valid
+
+Example with 2FA handling:
+
+```jsx
+import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { Passwordless } from 'meteor/quave:accounts-passwordless-react';
+
+export const Access = () => {
+  const history = useHistory();
+
+  const onEnterToken = () => {
+    history.push('/');
+    openAlert('Welcome!');
+  };
+  
+  return (
+    <Passwordless
+      onEnterToken={onEnterToken}
+      twoFactorCodeLabel="Enter your 2FA code"
+      twoFactorCodeValidationErrorMessage="Invalid 2FA code"
+    />
+  );
+};
+```
+
+#### Additional 2FA Props
+```javascript
+  twoFactorCodeLabel = '2FA Code', // Label for the 2FA code input field
+  twoFactorCodeValidationErrorMessage = 'Invalid 2FA code.', // Error message for invalid 2FA code
+  twoFactorCodeInputProps = {}, // Additional props to be passed to the 2FA code input field
+```
 
 ### License
 
