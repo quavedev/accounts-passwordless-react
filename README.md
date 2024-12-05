@@ -206,7 +206,7 @@ If you don't want to use this UI to display messages you can provide `null` for 
 
 ### Two-Factor Authentication (2FA)
 
-This package supports Two-Factor Authentication (2FA) when used with the `accounts-2fa` package. When 2FA is enabled for a user, they will be prompted to enter their 2FA code after successfully entering their email and token.
+This package supports Two-Factor Authentication (2FA) when used with the [accounts-2fa](https://docs.meteor.com/packages/accounts-2fa) package. When 2FA is enabled for a user, they will be prompted to enter their 2FA code after successfully entering their email and token.
 
 The flow works as follows:
 1. User enters their email and receives a token
